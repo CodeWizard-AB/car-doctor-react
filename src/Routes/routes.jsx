@@ -1,12 +1,16 @@
-import App from "../App";
-
 import { createBrowserRouter } from "react-router-dom";
+
+import App from "../App";
 import Home from "../Pages/Home";
+import Login from "../Pages/Login";
+import Signup from "../Pages/Signup";
+import ErrorPage from "../Pages/ErrorPage";
+
 const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <App />,
-		errorElement: <div>Not found</div>,
+		errorElement: <ErrorPage />,
 		children: [
 			{
 				path: "/",
@@ -27,6 +31,14 @@ const router = createBrowserRouter([
 			{
 				path: "/blog",
 				element: <h2>Blog</h2>,
+			},
+			{
+				path: "/login",
+				element: <Login />,
+			},
+			{
+				path: "/signup",
+				element: <Signup />,
 			},
 		],
 	},

@@ -5,7 +5,7 @@ import parts from "../assets/images/about_us/parts.png";
 /* eslint-disable react/no-unescaped-entities */
 function About() {
 	return (
-		<div className="grid grid-cols-2 gap-14 !mb-32 items-center">
+		<div className="grid grid-cols-2 gap-14 items-center">
 			<figure className="relative">
 				<img src={person} alt="person standing" />
 				<img

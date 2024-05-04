@@ -32,14 +32,16 @@ function NavBar() {
 			<div className="gap-4">
 				<BsHandbag />
 				<IoSearchOutline />
-				<ButtonMain
-					variant="outlined"
-					textCol="#ff3811"
-					borderCol="#ff3811"
-					bgCol="white"
-				>
-					Appointment
-				</ButtonMain>
+				<NavLink to="/login">
+					<ButtonMain
+						variant="outlined"
+						textCol="#ff3811"
+						borderCol="#ff3811"
+						bgCol="white"
+					>
+						Appointment
+					</ButtonMain>
+				</NavLink>
 			</div>
 			<Hamburger toggled={isOpen} toggle={setOpen} />
 		</nav>

@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
 import Button from "@mui/material/Button";
 
-function ButtonMain({ variant, children, textCol, bgCol, borderCol }) {
+function ButtonMain({ variant, children, textCol, bgCol, borderCol, event }) {
 	return (
 		<Button
 			size="large"
 			variant={variant}
 			sx={{
 				height: '50px',
+				paddingX: '25px',
 				color: textCol,
 				borderColor: borderCol,
 				background: bgCol,
@@ -17,6 +18,7 @@ function ButtonMain({ variant, children, textCol, bgCol, borderCol }) {
 					borderColor: borderCol,
 				},
 			}}
+			onClick={event}
 		>
 			{children}
 		</Button>
