@@ -15,7 +15,7 @@ function Cart() {
 				withCredentials: true,
 			})
 			.then((res) => setServices(res.data));
-	}, [user?.email]);
+	}, [fetchSecure, user?.email]);
 
 	return (
 		<div>
