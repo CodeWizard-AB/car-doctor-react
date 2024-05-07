@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import CartTable from "../components/CartTable";
 import PageBanner from "../components/PageBanner";
-import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 function Cart() {
 	const { user } = useAuth();
 	const [services, setServices] = useState();
+	const fetchSecure = useAxiosSecure();
 
 	useEffect(() => {
-		axios
-			.get(`http://localhost:4000/service-bookings?email=${user?.email}`, {
+		fetchSecure
+			.get(`/service-bookings?email=${user?.email}`, {
 				withCredentials: true,
 			})
 			.then((res) => setServices(res.data));

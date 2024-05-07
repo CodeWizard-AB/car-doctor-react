@@ -11,6 +11,7 @@ import {
 	signOut,
 	updateProfile,
 } from "firebase/auth";
+import axios from "axios";
 
 const AuthContext = createContext();
 
@@ -19,7 +20,7 @@ const Toast = Swal.mixin({
 	position: "top-start",
 	showConfirmButton: false,
 	timer: 2000,
-	timerProgressBar: true,	
+	timerProgressBar: true,
 	didOpen: (toast) => {
 		toast.onmouseenter = Swal.stopTimer;
 		toast.onmouseleave = Swal.resumeTimer;
@@ -32,11 +33,31 @@ const AuthProvider = function ({ children }) {
 
 	useEffect(() => {
 		const active = onAuthStateChanged(auth, (userInfo) => {
+			const userEmail = userInfo?.email || user?.email;
 			setUser(userInfo);
 			setLoading(false);
+			if (userInfo) {
+				axios
+					.post(
+						"http://localhost:4000/jwt",
+						{ email: userEmail },
+						{ withCredentials: true }
+					)
+					.then(({ data }) => console.log("token response", data));
+			} else {
+				axios
+					.post(
+						"http://localhost:4000/logout",
+						{ email: userEmail },
+						{ withCredentials: true }
+					)
+					.then(({ data }) => {
+						console.log(data);
+					});
+			}
 		});
 		return () => active();
-	}, []);
+	}, [user?.email]);
 
 	const signUp = async function ({ name, email, password }) {
 		setLoading(true);

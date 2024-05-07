@@ -10,7 +10,6 @@ import "ldrs/lineSpinner";
 import { useAuth } from "../contexts/AuthContext";
 import { useState } from "react";
 import "ldrs/lineSpinner";
-import axios from "axios";
 
 function Login() {
 	const navigate = useNavigate();
@@ -22,13 +21,8 @@ function Login() {
 		e.preventDefault();
 		logIn(user).then((result) => {
 			result && navigate(location.state || "/");
-			if (result) {
-				axios
-					.post("http://localhost:4000/jwt", user, { withCredentials: true })
-					.then(({ data }) => console.log(data));
-			}
 		});
-	};
+	};	
 
 	return (
 		<section className="grid grid-cols-2 items-center mb-20">
