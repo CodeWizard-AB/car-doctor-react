@@ -55,7 +55,9 @@ const router = createBrowserRouter([
 					</PrivateRoute>
 				),
 				loader: ({ params: { id } }) =>
-					fetch(`http://localhost:4000/car-services/${id}`),
+					fetch(
+						`https://car-doctor-server-nine-ruby.vercel.app/car-services/${id}`
+					),
 			},
 		],
 	},

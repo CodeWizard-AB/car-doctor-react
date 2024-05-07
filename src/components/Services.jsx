@@ -12,7 +12,7 @@ function Services() {
 
 	useEffect(() => {
 		axios
-			.get("http://localhost:4000/car-services")
+			.get("https://car-doctor-server-nine-ruby.vercel.app/car-services")
 			.then((res) => setServices(res.data));
 	}, []);
 

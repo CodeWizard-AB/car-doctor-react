@@ -42,14 +42,16 @@ export default function ModalForm({
 
 	React.useEffect(() => {
 		axios
-			.get("http://localhost:4000/car-services")
+			.get("https://car-doctor-server-nine-ruby.vercel.app/car-services")
 			.then((res) => setServices(res.data));
 	}, [id]);
 
 	React.useEffect(() => {
 		id &&
 			axios
-				.get(`http://localhost:4000/service-bookings/${id}`)
+				.get(
+					`https://car-doctor-server-nine-ruby.vercel.app/service-bookings/${id}`
+				)
 				.then(({ data }) => {
 					setServiceSelect(data.title);
 					setSelectDate(dayjs(data.date));
@@ -64,11 +66,14 @@ export default function ModalForm({
 		const price = services.find((item) => item.title === serviceSelect).price;
 		const updateDate = new Date(selectDate.$d).toLocaleDateString();
 		axios
-			.patch(`http://localhost:4000/service-bookings/${id}`, {
-				title: serviceSelect,
-				date: updateDate,
-				price,
-			})
+			.patch(
+				`https://car-doctor-server-nine-ruby.vercel.app/service-bookings/${id}`,
+				{
+					title: serviceSelect,
+					date: updateDate,
+					price,
+				}
+			)
 			.then(() => {
 				const wholeServices = [...tableServices];
 				const remaining = wholeServices.filter((service) => service._id !== id);

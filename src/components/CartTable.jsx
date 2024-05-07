@@ -28,7 +28,9 @@ function CartTable({ services, setServices }) {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				axios
-					.delete(`http://localhost:4000/service-bookings/${id}`)
+					.delete(
+						`https://car-doctor-server-nine-ruby.vercel.app/service-bookings/${id}`
+					)
 					.then(() => {
 						setServices((items) => items.filter((item) => id !== item._id));
 						Swal.fire({

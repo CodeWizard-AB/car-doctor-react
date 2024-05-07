@@ -24,7 +24,7 @@ function Checkout() {
 	const handleCheckout = function (e) {
 		e.preventDefault();
 		axios
-			.post("http://localhost:4000/service-bookings", {
+			.post("https://car-doctor-server-nine-ruby.vercel.app/service-bookings", {
 				...fieldValue,
 				price: service.price,
 				title: service.title,

@@ -39,7 +39,7 @@ const AuthProvider = function ({ children }) {
 			if (userInfo) {
 				axios
 					.post(
-						"http://localhost:4000/jwt",
+						"https://car-doctor-server-nine-ruby.vercel.app/jwt",
 						{ email: userEmail },
 						{ withCredentials: true }
 					)
@@ -47,7 +47,7 @@ const AuthProvider = function ({ children }) {
 			} else {
 				axios
 					.post(
-						"http://localhost:4000/logout",
+						"https://car-doctor-server-nine-ruby.vercel.app/logout",
 						{ email: userEmail },
 						{ withCredentials: true }
 					)
