@@ -8,7 +8,7 @@ function App() {
 	return (
 		<div>
 			<Toaster position="left top" />
-			<div className="max-w-screen-xl mx-auto">
+			<div className="max-w-screen-xl mx-auto md:px-6 px-4">
 				<NavBar />
 				<Outlet />
 			</div>

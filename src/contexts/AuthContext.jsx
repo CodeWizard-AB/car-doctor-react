@@ -3,24 +3,37 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { auth } from "../FireBase/firebase.config";
+import Swal from "sweetalert2";
 import {
 	createUserWithEmailAndPassword,
 	onAuthStateChanged,
 	signInWithEmailAndPassword,
+	signOut,
 	updateProfile,
 } from "firebase/auth";
 
 const AuthContext = createContext();
 
+const Toast = Swal.mixin({
+	toast: true,
+	position: "top-start",
+	showConfirmButton: false,
+	timer: 2000,
+	timerProgressBar: true,	
+	didOpen: (toast) => {
+		toast.onmouseenter = Swal.stopTimer;
+		toast.onmouseleave = Swal.resumeTimer;
+	},
+});
+
 const AuthProvider = function ({ children }) {
 	const [user, setUser] = useState();
-	const [loading, setLoading] = useState(false);
-
-  console.log(user)
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const active = onAuthStateChanged(auth, (user) => {
-			if (user) setUser(user);
+		const active = onAuthStateChanged(auth, (userInfo) => {
+			setUser(userInfo);
+			setLoading(false);
 		});
 		return () => active();
 	}, []);
@@ -32,7 +45,10 @@ const AuthProvider = function ({ children }) {
 			await updateProfile(auth.currentUser, {
 				displayName: name,
 			});
-			toast.success("Successfully sign up");
+			Toast.fire({
+				icon: "success",
+				title: "Signed up successfully",
+			});
 		} catch (error) {
 			toast.error(error.message);
 		} finally {
@@ -44,16 +60,34 @@ const AuthProvider = function ({ children }) {
 		setLoading(true);
 		try {
 			await signInWithEmailAndPassword(auth, email, password);
-			toast.success("Successfully log in");
+			Toast.fire({
+				icon: "success",
+				title: "Signed in successfully",
+			});
+			return true;
 		} catch (error) {
 			toast.error(error.message);
+			return false;
 		} finally {
 			setLoading(false);
 		}
 	};
 
+	const logOut = async function () {
+		try {
+			await signOut(auth);
+			setUser(null);
+			Toast.fire({
+				icon: "success",
+				title: "Logged out successfully",
+			});
+		} catch (error) {
+			toast.error(error.message);
+		}
+	};
+
 	return (
-		<AuthContext.Provider value={{ user, logIn, signUp, loading }}>
+		<AuthContext.Provider value={{ user, logIn, signUp, loading, logOut }}>
 			{children}
 		</AuthContext.Provider>
 	);

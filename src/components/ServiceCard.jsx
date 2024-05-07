@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { GoArrowRight } from "react-icons/go";
+import { Link } from "react-router-dom";
 function ServiceCard({ service }) {
 	return (
 		<figure className="bg-white p-6 border rounded-xl border-gray-300 hover:-translate-y-2 transition-all duration-500">
@@ -14,7 +15,9 @@ function ServiceCard({ service }) {
 				<p className="text-main font-semibold text-xl">
 					Price: ${service.price}
 				</p>
-				<GoArrowRight size={24} color="#ff3811" cursor="pointer" />
+				<Link to={`/checkout/${service._id}`}>
+					<GoArrowRight size={24} color="#ff3811" cursor="pointer" />
+				</Link>
 			</figcaption>
 		</figure>
 	);

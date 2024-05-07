@@ -3,7 +3,7 @@ import logo from "../assets/logo.svg";
 function Footer() {
 	return (
 		<footer className="py-28 bg-[#151515] text-white">
-			<div className="max-w-screen-xl mx-auto footer px-10">
+			<div className="max-w-screen-xl mx-auto md:footer px-10">
 				<aside>
 					<img src={logo} alt="website logo" />
 					<p className="max-w-72">

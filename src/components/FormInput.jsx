@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import TextField from "@mui/material/TextField";
 
-function FormInput({ label, id, type, value, onChange }) {
+function FormInput({ label, id, type, value, onChange, error }) {
 	return (
 		<div className="flex flex-col gap-5 mb-7">
 			<label htmlFor={id} className="font-semibold text-xl">
@@ -21,6 +21,9 @@ function FormInput({ label, id, type, value, onChange }) {
 				}}
 				value={value}
 				onChange={onChange}
+				error={Boolean(error?.[id])}
+				helperText={error?.[id]}
+				required={true}
 			/>
 		</div>
 	);

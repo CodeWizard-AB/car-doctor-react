@@ -2,7 +2,7 @@ const navigation = [
 	{ title: "Home", link: "/" },
 	{ title: "About", link: "/about" },
 	{ title: "Services", link: "/services" },
-	{ title: "Blog", link: "/blog" },
+	{ title: "Cart", link: "/cart" },
 	{ title: "Contact", link: "/contact" },
 ];
 
@@ -15,4 +15,12 @@ const bannerImages = [
 	"https://i.postimg.cc/3wDSck9V/6.jpg",
 ];
 
-export { navigation, bannerImages };
+const checkOutForm = [
+	{ label: "Full Name", type: "text", name: "fullName" },
+	{ label: "Pick Your Date", type: "date", name: "date" },
+	{ label: "Your Phone", type: "tel", name: "phone" },
+	{ label: "Your Email", type: "email", name: "email" },
+	{ label: "Your Message", type: "text", name: "message" },
+];
+
+export { navigation, bannerImages, checkOutForm };

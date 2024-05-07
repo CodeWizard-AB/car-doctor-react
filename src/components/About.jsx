@@ -5,13 +5,13 @@ import parts from "../assets/images/about_us/parts.png";
 /* eslint-disable react/no-unescaped-entities */
 function About() {
 	return (
-		<div className="grid grid-cols-2 gap-14 items-center">
-			<figure className="relative">
+		<div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
+			<figure className="relative md:row-start-1 row-start-2">
 				<img src={person} alt="person standing" />
 				<img
 					src={parts}
 					alt="parts of cars"
-					className="absolute -bottom-12 right-12"
+					className="absolute -bottom-12 right-12 hidden lg:block"
 				/>
 			</figure>
 			<div>

@@ -3,14 +3,17 @@ import { useEffect, useState } from "react";
 import SectionTitle from "./SectionTitle";
 import ServiceCard from "./ServiceCard";
 import ButtonMain from "./Button";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Services() {
 	const [services, setServices] = useState();
+	const navigate = useNavigate();
 
 	useEffect(() => {
-		fetch("services.json")
-			.then((res) => res.json())
-			.then((data) => setServices(data));
+		axios
+			.get("http://localhost:4000/car-services", { withCredentials: true })
+			.then((res) => setServices(res.data));
 	}, []);
 
 	return (
@@ -23,7 +26,7 @@ function Services() {
 					humour, or randomised words which don't look even slightly believable.
 				</p>
 			</SectionTitle>
-			<div className="grid grid-cols-3 gap-6">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 				{services?.map((item) => (
 					<ServiceCard key={item._id} service={item} />
 				))}
@@ -34,6 +37,7 @@ function Services() {
 					borderCol="#ff3811"
 					bgCol="white"
 					variant="outlined"
+					event={() => navigate("/services")}
 				>
 					More Service
 				</ButtonMain>

@@ -1,3 +1,4 @@
+import { object, string } from "yup";
 import { Link } from "react-router-dom";
 import login from "../assets/images/login/login.svg";
 import ButtonMain from "../components/Button";
@@ -6,19 +7,45 @@ import FormInput from "../components/FormInput";
 import facebook from "../assets/icons/facebook.png";
 import google from "../assets/icons/google.png";
 import linkedIn from "../assets/icons/linkedIn.png";
-import "ldrs/lineSpinner";
 import { useAuth } from "../contexts/AuthContext";
 import { useState } from "react";
+import "ldrs/lineSpinner";
+
+const schema = object({
+	name: string().required("Name is required"),
+	email: string().email("Invalid email format").required("Email is required"),
+	password: string()
+		.min(8, "Password must be at least 8 characters")
+		.required("Password is required"),
+});
 
 function Signup() {
-	const [user, setUser] = useState({
-		name: "",
-		email: "",
-		password: "",
-	});
+	const [error, setError] = useState(null);
+	const [user, setUser] = useState({});
 	const { loading, signUp } = useAuth();
 
-	console.log(user);
+	const validation = async () => {
+		setError(null);
+		try {
+			await schema.validate(user, { abortEarly: false });
+			return true;
+		} catch (error) {
+			const errors = {};
+			error.inner.forEach((err) => {
+				errors[err.path] = err.message;
+			});
+			setError(errors);
+			return false;
+		}
+	};
+
+	const handleSignUp = async function () {
+		const validate = await validation();
+		if (validate) {
+			signUp(user);
+			setError(null);
+		}
+	};
 
 	return (
 		<section className="grid grid-cols-2 items-center mb-20">
@@ -34,29 +61,32 @@ function Signup() {
 					type="text"
 					label="Name"
 					id="name"
-					value={user.name}
+					value={user?.name || ""}
 					onChange={(e) => setUser({ ...user, name: e.target.value })}
+					error={error}
 				/>
 				<FormInput
 					type="email"
 					label="Email"
 					id="email"
-					value={user.email}
+					value={user?.email || ""}
 					onChange={(e) => setUser({ ...user, email: e.target.value })}
+					error={error}
 				/>
 				<FormInput
 					type="password"
 					label="Password"
 					id="password"
-					value={user.password}
+					value={user?.password || ""}
 					onChange={(e) => setUser({ ...user, password: e.target.value })}
+					error={error}
 				/>
 				<ButtonMain
 					variant="contained"
 					bgCol="#ff3811"
 					borderCol="#ff3011"
 					textCol="white"
-					event={signUp.bind(null, user)}
+					event={handleSignUp}
 				>
 					{!loading ? (
 						"Sign Up"

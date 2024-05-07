@@ -5,6 +5,9 @@ import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import Signup from "../Pages/Signup";
 import ErrorPage from "../Pages/ErrorPage";
+import Checkout from "../Pages/Checkout";
+import PrivateRoute from "../Pages/PrivateRoute";
+import Cart from "../Pages/Cart";
 
 const router = createBrowserRouter([
 	{
@@ -29,8 +32,12 @@ const router = createBrowserRouter([
 				element: <h2>Contact</h2>,
 			},
 			{
-				path: "/blog",
-				element: <h2>Blog</h2>,
+				path: "/cart",
+				element: (
+					<PrivateRoute>
+						<Cart />
+					</PrivateRoute>
+				),
 			},
 			{
 				path: "/login",
@@ -39,6 +46,16 @@ const router = createBrowserRouter([
 			{
 				path: "/signup",
 				element: <Signup />,
+			},
+			{
+				path: "/checkout/:id",
+				element: (
+					<PrivateRoute>
+						<Checkout />
+					</PrivateRoute>
+				),
+				loader: ({ params: { id } }) =>
+					fetch(`http://localhost:4000/car-services/${id}`),
 			},
 		],
 	},
